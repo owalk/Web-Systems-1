@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta http-equiv="Content-Type"
+          content="text/html;
+                   charset =utf-8">
+    <title>Compose Mail</title>
+  </head>
+  <body>
+    <h1>Compose mail here</h1>
+    <hr/>
+
+    <form action="compose.php" method="post">
+      <div>
+        <label for="subject">Subject: </label>
+        <input
+           name="subject"
+           id="subject"
+           type="text"/>
+      </div>
+      <div>
+        <label for="body">Body: </label>
+        <textarea
+           name="body"
+           id="body"
+           rows="25"
+           cols="75"
+           title="type your message here">
+        </textarea>
+      </div>
+      <input name="submit" type="submit" value="send to all"
+    </form>
+  </body>
+</html>

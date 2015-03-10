@@ -1,0 +1,79 @@
+<?php
+   include(connect2.php); //connect to the guestbook database
+
+   $var=$_POST["txt_name"];
+   $len =$strlen($var);
+   
+   if($len > 0)//only write to database if there is a name{
+     $email =$_POST["txt_email"];
+     $comment = $_POST["txt_comment"];
+     $date = time();
+   }
+
+$query = "INSERT INTO guestbook (autoID, name, email, comment, date_auto)
+VALUES (NULL, '$name', '$comment', '$date')";
+
+mysqli_query($query, $dbc) or die mysqli_error($dbc));
+?>
+
+
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta http-equiv="Content-Type"
+          content="text/html;
+                   charset=utf-8">
+    <title>Guestbook</title>
+  </head>
+
+  <body>
+    <center>
+    <form action ="?php echo $_SERVER[PHP_SELF]; ?>" method="post">
+      Name: <input type="text" name="txt_name">&nbsp;
+      Email: <input type="text" name="txt_email"><br><br>
+      Comment:<br>
+      <textarea style="width: 75%" rows="10" name="txt_comment"></textarea>
+      <center><input type ="submit" value ="Submit!"></center>
+    </form>
+
+    <table border="0" width="75%" cellpadding="2">
+      <?php
+         $query = "SELECT * FROM guestbook ORDER BY date_auto";
+         $result = mysqli_query($query, $dbc);
+
+         for ($i = 0; $i < mysqli_num_rows($result); $i++){
+             $name = mysqli_result($result, $i, "name");
+             $email = mysqli_result($result, $i, "email");
+             $email_len = strlen($email);              
+             $comment = mysqli_result($result, $i, "comment");
+             $comment = nl2br($comment);              
+             $date = mysqli_result($result, $i, "date_auto");
+             $show_date = date("H:i:s m/d/Y", $date);
+                           
+             echo '
+
+               <tr>
+                 <td width = "100%">';
+                   if ($email_len > 0){
+                     echo '<b>Name:</b> <a href="mailto:' . $email . '"> . $name . '</a>';
+                   }else{
+                     echo '<b>Name:</b> ' . $name;
+                   }
+
+                   echo '
+                   <br>
+                   <b>Comment:</b> ' . $comment . '
+                 </td>
+
+                 <td  width="1%" valign="top">  
+                   <b>Date:  </b> ' . $show_date . '
+                 </td>
+               </tr>
+                  '
+         }
+         ?>
+    </table>
+    
+    </center>
+  </body>
+</html>

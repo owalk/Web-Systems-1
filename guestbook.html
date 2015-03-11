@@ -4,7 +4,7 @@
    $var=$_POST["txt_name"];
    $len =$strlen($var);
    
-  // if($len > 0)//only write to database if there is a name{
+   if($len > 0)//only write to database if there is a name{
      $email =$_POST["txt_email"];
      $comment = $_POST["txt_comment"];
      $date = time();
